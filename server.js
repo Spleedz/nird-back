@@ -9,6 +9,10 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 require('dotenv').config();
 
+// ===== NOUVELLE IMPORT: Podium/Missions =====
+const { loadData, dataLoaderMiddleware } = require('./middleware/dataLoader');
+const podiumRoutes = require('./routes/podium');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -23,6 +27,9 @@ app.use(cors({
 app.use(morgan('dev')); // Logs des requêtes
 app.use(express.json()); // Parser JSON
 app.use(express.urlencoded({ extended: true }));
+
+// ===== NOUVEAU: Middleware Podium =====
+app.use(dataLoaderMiddleware);
 
 // ============================================================================
 // BASE DE DONNÉES EN MÉMOIRE (Pour la Nuit de l'Info)
@@ -233,6 +240,12 @@ app.get('/api/users/:userId/progress', (req, res) => {
     completedCount: user.completedMissions.length
   });
 });
+
+// ============================================================================
+// ROUTES - PODIUM / MISSIONS ENTREPRISE (NEW)
+// ============================================================================
+// Montage du routeur podium sous /api/podium
+app.use('/api/podium', podiumRoutes);
 
 // ============================================================================
 // ROUTES - LEADERBOARD
@@ -536,9 +549,13 @@ app.use((req, res) => {
 // ============================================================================
 // DÉMARRAGE DU SERVEUR
 // ============================================================================
+// ===== NOUVEAU: Charger les données avant de démarrer =====
+loadData();
+
 app.listen(PORT, () => {
   console.log(`🏰 Village Numérique Résistant API`);
   console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
   console.log(`🌍 CORS activé pour: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+  console.log(`🏆 Podium API disponible sur /api/podium/*`);
 });
