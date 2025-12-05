@@ -1,0 +1,32 @@
+[
+  {
+    "missionId": 174,
+    "teamId": 1,
+    "score": 850,
+    "updatedAt": "2025-12-05T10:30:00Z"
+  },
+  {
+    "missionId": 174,
+    "teamId": 2,
+    "score": 720,
+    "updatedAt": "2025-12-05T10:25:00Z"
+  },
+  {
+    "missionId": 174,
+    "teamId": 3,
+    "score": 690,
+    "updatedAt": "2025-12-05T10:20:00Z"
+  },
+  {
+    "missionId": 174,
+    "teamId": 5,
+    "score": 540,
+    "updatedAt": "2025-12-05T10:15:00Z"
+  },
+  {
+    "missionId": 174,
+    "teamId": 6,
+    "score": 480,
+    "updatedAt": "2025-12-05T10:10:00Z"
+  }
+]
